@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign-up Sheet</title>
+<style>
+	body {
+		font-family: gill sans, sans-serif;
+		font-weight: bold;
+ 		background-image: url('up.jpg');
+		background-repeat: no-repeat;
+  		background-size: 100% 100%;
+	}
+
+	form {
+  		display: flex;
+  		flex-direction: column;
+  		align-items: center;
+  		background-color: rgba(255, 255, 255, 0.65);
+  		padding: 20px;
+  		box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.1);;
+  		margin: 0 auto;
+  		max-width: 500px;
+		border-radius: 50px 50px 50px 50px;
+	}
+
+	fieldset {
+		border-radius: 20px 20px 20px 20px;
+		border-color: rgba(255, 255, 255, 0);
+	}
+
+	form label {
+		margin-left: 5px;
+		font-size: 18px;
+		color: #594C4C;
+	}
+
+	form input[type="text"], form input[type="email"], form input[type="password"], form input[type="number"], select, textarea{
+  		width: 93%;
+  		margin-bottom: 10px;
+  		margin-left: 5px;
+  		padding: 8px;
+  		border-radius: 20px 20px 20px 20px;
+		background-color: rgba(255, 255, 255, 0.65);
+		color: #594C4C;
+	}
+
+ 	#output {
+            	padding: 20px;
+            	border: 1px solid #ccc;
+            	background-color: #f9f9f9;
+	    	width: 500px;
+	   	margin: 0 auto;
+	    	margin-bottom: 20px;
+	    	border-radius: 20px 20px 20px 20px;
+	    	background-color: rgba(255, 255, 255, 0.65);
+           	font-family: times new roman;
+		font-size: 20px;
+		color: #594C4C;
+	}
+
+	h1 {
+		font-family: times new roman;
+	     	text-align: center;
+		font-size: 40px;
+		color: #594C4C;
+	}
+
+	legend {
+		font-size: 20px;
+		text-align: center;
+		color: #594C4C;
+	}
+
+	.signup-btn {
+		margin-left: 25px;
+  		font-size: 18px;
+  		font-weight: bold;
+  		background-color: #4CAF50;
+  		color: white;
+  		padding: 14px 20px;
+  		border: none;
+  		border-radius: 50px;
+  		cursor: pointer;
+  		width: 90%;
+  		opacity: 0.9;
+  		transition: all 0.3s ease;
+	}
+
+	.signup-btn:hover {
+  		opacity: 1;
+	}
+
+	.reset-btn {
+		margin-left: 25px;
+  		margin-top: 10px;
+  		font-size: 18px;
+  		font-weight: bold;
+  		background-color: #DD3939;
+  		color: white;
+  		padding: 14px 20px;
+  		border: none;
+  		border-radius: 50px;
+  		cursor: pointer;
+  		width: 90%;
+  		opacity: 0.9;
+  		transition: all 0.3s ease;
+	}
+
+	.reset-btn:hover {
+  		opacity: 1;
+	}
+
+        .error {
+            	border: 2px solid red;
+        }
+
+        .valid {
+            	border: 2px solid green;
+        }
+</style>
+</head>
+<body>
+    <h1>Welcome to my website!</h1>
+    <form id="signup">
+        <fieldset form="signup">
+            <legend>Sign-up here</legend>
+            <label for="name">Name:</label><br/>
+            <input type="text" id="name" name="name" onfocus="this.className=''" onblur="Input(this)" required>
+            <br>
+
+            <label for="username">Preferred Username:</label><br/>
+            <input type="text" id="username" name="username" onfocus="this.className=''" onblur="Input(this)" required>
+            <br>
+
+            <label for="gender">Gender:</label><br/>
+            <select id="gender" name="gender" onfocus="this.className=''" onblur="Input(this)" required>
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="prefer-not-to-mention">Prefer not to mention</option>
+            </select>
+            <br>
+
+	    <label for="age">Enter your age: </label>
+	    <input type="number" id="age"  name="age" min="1" max="100" onfocus="this.className=''" onblur="Input(this)" required>
+	    <br>
+
+            <label for="password">Password:</label><br/>
+            <input type="password" id="password" name="password" onfocus="this.className=''" onblur="Input(this)" required>
+            <br>
+
+            <label for="email">Email Address:</label><br/>
+            <input type="email" id="email" name="email" onfocus="this.className=''" onblur="Input(this)" required>
+            <br>
+
+            <label for="address">Address:</label><br/>
+            <input type="text" id="address" name="address" onfocus="this.className=''" onblur="Input(this)" required>
+            <br>
+
+	    <label for="interest">Short paragraph on your interests:</label><br/>
+            <textarea id="interest" name="interest" rows="4" cols="60" onfocus="this.className=''" onblur="Input(this)" required></textarea>
+            <br>
+
+            <input type="submit" class="signup-btn" value="Sign up">
+            <input type="reset" class="reset-btn" value="Reset">
+        </fieldset>
+    </form>
+    <div id="output"></div>
+
+     <script>
+
+  	function Input(input) {
+            if (input.value === "") {
+            input.className = "error";
+	} else {
+            input.className = "valid";
+            }
+        }
+
+        const form = document.getElementById('signup');
+        const output = document.getElementById('output');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); 
+            const formData = new FormData(form);
+            const userData = {};
+            for (const [key, value] of formData) {
+                userData[key] = value;
+            }
+           output.innerHTML = `
+    		<strong>Name:</strong> ${userData.name}<br>
+    		<strong>Preferred Username:</strong> ${userData.username}<br>
+    		<strong>Gender:</strong> ${userData.gender}<br>
+     		<strong>Age:</strong> ${userData.age}<br>
+    		<strong>Password:</strong> ${userData.password}<br>
+    		<strong>Email Address:</strong> ${userData.email}<br>
+    		<strong>Address:</strong> ${userData.address}<br>
+    		<strong>Interest:</strong> ${userData.interest}
+  		`;
+        });
+
+        document.querySelector('input[type="reset"]').addEventListener('click', () => {
+            output.innerText = '';
+            form.reset(); 
+        });
+    </script>
+</body>
+</html>
